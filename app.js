@@ -22,7 +22,10 @@ var paymentroutes    = require("./routes/payments"),
         useUnifiedTopology: true,
         useNewUrlParser: true
     };
-    mongoose.connect("mongodb+srv://ankit:passraj@aimusic-es8pe.mongodb.net/test?retryWrites=true&w=majority",options).then(() =>console.log('DB connected'));
+    var dev_db_url = 'mongodb+srv://ankit:passraj@aimusic-es8pe.mongodb.net/test?retryWrites=true&w=majority';
+    var mongoDB = process.env.MONGODB_URI || dev_db_url;
+    mongoose.connect(mongoDB,options).then(() =>console.log('DB connected'));
+    // mongoose.connect("mongodb+srv://ankit:passraj@aimusic-es8pe.mongodb.net/test?retryWrites=true&w=majority",options).then(() =>console.log('DB connected'));
 
     app.use(express.static("public"));
     app.use(methodoverride("_method"));
