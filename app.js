@@ -40,9 +40,7 @@ var paymentroutes    = require("./routes/payments"),
     app.use(passport.initialize());
     app.use(passport.session())
     passport.use(new localstrategy(user.authenticate()));
-    passport.serializeUser(user.serializeUser());
-    passport.deserializeUser(user.deserializeUser());
-    
+    passport.serializeUser(user.serializeUser());    
     //checking that user is logged in and returning the users details to every routes as middleware
     app.use(function(req,res , next){
       res.locals.currentuser = req.user;
@@ -54,7 +52,7 @@ var paymentroutes    = require("./routes/payments"),
     app.use(indexroutes);
     app.use("/songs/:id/payments",paymentroutes);
     app.use("/songs", songroutes);
-    
-    app.listen(3000,function(){
+    const PORT = process.env.PORT || 3000;
+    app.listen(PORT,function(){
         console.log("AI SONGS app server has started");
     });
